@@ -22,13 +22,25 @@ function Person(name, age) {
 }
 
 Person.prototype.eat = function (food) {
-        return this.stomach.push(food);
+	if(this.stomach.length < 10){
+		this.stomach.push(food);
+	}
 }
 
-const person1 = new Person("Mary", 17);
+Person.prototype.poop = function () {
+	this.stomach = [];
+}
 
-person1.eat("pizza");
+Person.prototype.toString = function(){
+	return `${this.name}, ${this.age}`;
+}
+
+const person1 = new Person("Julie", 17);
+
+person1.eat("mashed potatoes");
 person1.eat("fried fish");
+person1.poop();
+
 console.log(person1);
 
 
