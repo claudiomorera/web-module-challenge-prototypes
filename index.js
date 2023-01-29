@@ -15,9 +15,22 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.stomach = [];
 }
+
+Person.prototype.eat = function (food) {
+        return this.stomach.push(food);
+}
+
+const person1 = new Person("Mary", 17);
+
+person1.eat("pizza");
+person1.eat("fried fish");
+console.log(person1);
+
 
 
 /*
@@ -36,10 +49,19 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+        this.model = model;
+        this.milesPerGallon = milesPerGallon;
+        this.tank = 0;
 }
 
+Car.prototype.fill = function (gallons) {
+        return this.tank += gallons;
+}
+
+const firstCar = new Car("Wrangler", 21); 
+firstCar.fill(21.5);
+console.log(firstCar);
 
 /*
   TASK 3
@@ -49,18 +71,33 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+        Person.call(this, name, age);
+        this.favoriteToy = favoriteToy;
 }
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function (){
+        return `Playing with ${this.favoriteToy}`;
+}
+
+const baby1 = new Baby("Joshua", "11 months", "red toy car");
+baby1.eat("apple compote");
+baby1.play();
+baby1.eat("milk");
+console.log(baby1);
 
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. this on the global scope is the JS programming language itself
+  2. this on the implicit way, refers to the properties and methods inside the object itself
+  3. this as a new binding, is a different way of creating objects based on a template
+  4. this as explicit binding, is using a method to bring together objects with objects or methods, 
+  uses the this, inderectly, plus when functions are taken as callbacks this keyword won't work, 
+  and the explicit binding has to be used.
 */
 
 ///////// END OF CHALLENGE /////////
